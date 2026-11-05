@@ -1,6 +1,8 @@
-# eCash (ECX) Drivechain Whale Index & Top 500 UTXO Rich List
+# eCash (ECX) Drivechain Whale Index & Top 500 Post-Fork UTXO Rich List
 
-An interactive, dark-mode financial terminal and rich list tracking the **500 largest Unspent Transaction Outputs (UTXOs)** on the **eCash (ECX)** blockchain—the Bitcoin hard fork implementing **BIP-300** (Hashrate Escrows) and **BIP-301** (Blind Merged Mining) Drivechains spearheaded by LayerTwo Labs.
+An interactive, dark-mode financial terminal and rich list tracking the **500 largest post-fork active Unspent Transaction Outputs (UTXOs)** on the **eCash (ECX)** blockchain—the Bitcoin hard fork implementing **BIP-300** (Hashrate Escrows) and **BIP-301** (Blind Merged Mining) Drivechains spearheaded by LayerTwo Labs.
+
+> **Note on Post-Fork Scope:** All dormant pre-fork Bitcoin coins have been removed. This index exclusively tracks coins that were **newly split** (via replay-protected coin splitters), **newly mined** (BIP-301 coinbase rewards), or **moved/consolidated post-fork** at block heights &ge; **#973,728**.
 
 ---
 
@@ -10,8 +12,11 @@ An interactive, dark-mode financial terminal and rich list tracking the **500 la
 - **Consensus Layer:** Drivechains (BIP-300 & BIP-301)
 - **Hard Fork Block Height:** `#973,728`
 - **Snapshot Date:** October 31, 2026 (18th Anniversary of Bitcoin Whitepaper)
-- **Ledger Model:** 1:1 Bitcoin state mirror for UTXOs at snapshot height
-- **Top 500 Holdings:** ~5,187,960 ECX (~26.23% of total circulating supply)
+- **Scope:** 100% Post-Fork Active UTXOs (confirmed at blocks &ge; #973,728)
+- **Explorers Integrated:**
+  - `[1]` [explorer.ecash.com](https://explorer.ecash.com/) — Official eCash base layer explorer
+  - `[2]` [explorer.blockfab.org](https://explorer.blockfab.org/) — BlockFab Drivechain & BIP-300/301 explorer
+- **Top 500 Post-Fork Volume:** ~2,059,598 ECX (~10.41% of total circulating supply)
 - **Sidechains Tracked:** SC#0 Thunder (High-speed payments), SC#1 zSide (ZK Privacy), SC#2 BitNames (DNS), SC#3 Truthcoin (Prediction Markets)
 
 ---
@@ -92,3 +97,4 @@ python3 -m http.server 8000
 - **UTXO Inspector Modal:** Inspect raw ScriptPubKey hex, transaction hashes, confirmation timestamps, output indices (`vout`), and an interactive **BIP-300 Drivechain Peg-In Simulator** for sidechains.
 - **Data Export:** Instant one-click export of the active or filtered UTXO dataset to formatted `.csv` or `.json`.
 - **Zero-Dependency Resilience:** Dual-mode data loader supports both `fetch('data/utxos.json')` and local global fallback (`data/utxos.js`) to guarantee functionality even when opening locally without a web server.
+

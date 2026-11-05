@@ -164,13 +164,13 @@
     const supplyPct = ((totalTrackedAmount / TOTAL_ESTIMATED_SUPPLY) * 100).toFixed(2);
 
     elements.statTotalAmount.textContent = formatDisplayAmount(totalTrackedAmount);
-    elements.statSupplyPct.textContent = `~${supplyPct}% of Circulating Supply (${formatEcx(totalTrackedAmount)})`;
+    elements.statSupplyPct.textContent = `~${supplyPct}% of Total Supply (Active Post-Fork Coins)`;
     elements.statLargestUtxo.textContent = formatDisplayAmount(largest.amount);
     elements.statLargestEntity.textContent = `${largest.entity} (${formatEcx(largest.amount)})`;
     elements.statCutoffUtxo.textContent = formatDisplayAmount(cutoff.amount);
     elements.statAvgUtxo.textContent = formatDisplayAmount(avg);
     elements.statAvgUsd.textContent = state.currency === "USD" ? formatEcx(avg) : formatUsd(avg);
-    elements.heroTotalTracked.textContent = `${state.utxos.length} UTXOs (${(totalTrackedAmount / 1e6).toFixed(2)}M ECX)`;
+    elements.heroTotalTracked.textContent = `${state.utxos.length} Post-Fork UTXOs (${(totalTrackedAmount / 1e6).toFixed(2)}M ECX)`;
   }
 
   // Script Type Distribution Card
@@ -407,9 +407,10 @@
 
   // Category Tag CSS helper
   function getCategoryTagClass(cat) {
+    if (cat.includes("Mining")) return "tag-mining";
+    if (cat.includes("Split")) return "tag-split";
     if (cat.includes("Exchange")) return "tag-exchange";
     if (cat.includes("Institutional")) return "tag-institutional";
-    if (cat.includes("Dormant")) return "tag-dormant";
     if (cat.includes("Protocol") || cat.includes("Drivechain")) return "tag-protocol";
     return "tag-defi";
   }
@@ -461,6 +462,10 @@
               <button class="btn-copy" data-copy="${u.address}" title="Copy Address">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
               </button>
+              <span class="explorer-links">
+                <a href="https://explorer.ecash.com/address/${u.address}" target="_blank" rel="noopener noreferrer" class="exp-link" title="View address on explorer.ecash.com">[1]</a>
+                <a href="https://explorer.blockfab.org/address/${u.address}" target="_blank" rel="noopener noreferrer" class="exp-link exp-link-2" title="View address on explorer.blockfab.org (BlockFab Drivechain Explorer)">[2]</a>
+              </span>
             </div>
           </td>
           <td class="amount-cell">
@@ -584,6 +589,19 @@
     document.getElementById("modal-block").textContent = `Block #${utxo.block_height.toLocaleString()}`;
     document.getElementById("modal-date").textContent = `Confirmed ~${utxo.date}`;
     document.getElementById("modal-script-hex").textContent = utxo.script_hex || "0014...";
+    
+    // Explorer Links in Modal
+    const exp1Addr = document.getElementById("modal-exp1-addr");
+    const exp2Addr = document.getElementById("modal-exp2-addr");
+    const exp1Txid = document.getElementById("modal-exp1-txid");
+    const exp2Txid = document.getElementById("modal-exp2-txid");
+    const movType = document.getElementById("modal-movement-type");
+
+    if (exp1Addr) exp1Addr.href = `https://explorer.ecash.com/address/${utxo.address}`;
+    if (exp2Addr) exp2Addr.href = `https://explorer.blockfab.org/address/${utxo.address}`;
+    if (exp1Txid) exp1Txid.href = `https://explorer.ecash.com/tx/${utxo.txid}`;
+    if (exp2Txid) exp2Txid.href = `https://explorer.blockfab.org/tx/${utxo.txid}`;
+    if (movType) movType.textContent = utxo.movement_type || "Post-Fork Moved";
 
     elements.modal.classList.add("active");
   }
@@ -742,12 +760,15 @@
       "Rank",
       "Entity",
       "Category",
+      "Movement_Type",
       "Address",
       "Amount_ECX",
       "Amount_USD",
       "Script_Type",
       "Block_Height",
       "Confirmed_Date",
+      "Explorer_Ecash_URL",
+      "Explorer_Blockfab_URL",
       "TXID",
       "Vout",
       "BIP300_Eligible"
@@ -757,12 +778,15 @@
       u.rank,
       `"${(u.entity || "").replace(/"/g, '""')}"`,
       `"${(u.category || "").replace(/"/g, '""')}"`,
+      `"${(u.movement_type || "").replace(/"/g, '""')}"`,
       u.address,
       u.amount.toFixed(4),
       (u.amount * state.ecxPriceUsd).toFixed(2),
       u.type,
       u.block_height,
-      u.date,
+      `"${u.date}"`,
+      `"https://explorer.ecash.com/address/${u.address}"`,
+      `"https://explorer.blockfab.org/address/${u.address}"`,
       u.txid,
       u.vout,
       "TRUE"
@@ -815,3 +839,4 @@
     loadData();
   }
 })();
+

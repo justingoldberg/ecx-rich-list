@@ -47,18 +47,17 @@
     <section class="hero">
       <div class="hero-banner">
         <div class="hero-title">
-          <h2>eCash (ECX) Top 500 UTXO Rich List</h2>
+          <h2>eCash (ECX) Top 500 Post-Fork UTXO Rich List</h2>
           <p>
-            Tracking the 500 largest unspent outputs across the native <strong>eCash (ECX) Drivechain hard fork</strong>.
-            Activated at Bitcoin block height <strong>#973,728</strong>, ECX incorporates native 
-            <strong>BIP-300</strong> (Hashrate Escrows) and <strong>BIP-301</strong> (Blind Merged Mining), enabling trustless 
-            two-way peg-ins to high-throughput sidechains like Thunder, zSide, and BitNames.
+            Tracking the 500 largest post-fork active unspent outputs on the native <strong>eCash (ECX) Drivechain hard fork</strong> 
+            (confirmed at blocks <strong>&ge; #973,728</strong>). All pre-fork dormant Bitcoin snapshot coins have been 
+            <strong>removed</strong>—displaying only newly split, merge-mined, or post-fork moved coins.
           </p>
           <div class="drivechain-tags">
             <span class="tag-item">Consensus: <strong>BIP-300 &amp; 301</strong></span>
-            <span class="tag-item">Snapshot: <strong>Block 973,727 (1:1 BTC Split)</strong></span>
-            <span class="tag-item">Total Tracked: <strong id="hero-total-tracked">500 UTXOs</strong></span>
-            <span class="tag-item">Sidechain Peg-In Ready: <strong style="color: var(--accent-emerald);">100%</strong></span>
+            <span class="tag-item">Scope: <strong style="color: var(--accent-emerald);">Post-Fork Only (&ge; #973,728)</strong></span>
+            <span class="tag-item">Explorers: <strong>[1] explorer.ecash.com | [2] explorer.blockfab.org</strong></span>
+            <span class="tag-item">Total Active: <strong id="hero-total-tracked">500 UTXOs</strong></span>
           </div>
         </div>
         <div style="text-align: right;">
@@ -157,11 +156,12 @@
         <div class="filter-group">
           <select id="filter-category" class="select-custom">
             <option value="ALL">All Categories</option>
+            <option value="Newly Split">Newly Split (ecash-splitter)</option>
+            <option value="Mining Pool">Mining Pools (BIP-301 Merged Mining)</option>
+            <option value="Drivechain Protocol">Drivechain Protocol &amp; Peg-Ins</option>
             <option value="Exchange Cold Wallet">Exchange Cold Wallets</option>
             <option value="Institutional Custody">Institutional Custody</option>
-            <option value="Dormant Whale">Dormant Whales</option>
-            <option value="Drivechain Protocol">Drivechain Protocol / Reserves</option>
-            <option value="Government Seizure">Government Seizures</option>
+            <option value="DeFi / Liquidity Desk">DeFi &amp; Liquidity Desks</option>
           </select>
 
           <select id="filter-type" class="select-custom">
@@ -204,7 +204,7 @@
           <tr>
             <th class="sortable" data-sort="rank" style="width: 70px;">Rank <span class="sort-arrow">▼</span></th>
             <th class="sortable" data-sort="entity">Entity / Attribution <span class="sort-arrow"></span></th>
-            <th>Address / Script</th>
+            <th>Address &amp; Explorers [1] [2]</th>
             <th class="sortable" data-sort="amount" style="text-align: right;">Amount <span class="sort-arrow"></span></th>
             <th class="sortable" data-sort="type" style="text-align: center;">Script Type <span class="sort-arrow"></span></th>
             <th class="sortable" data-sort="block_height">Confirmed Block <span class="sort-arrow"></span></th>
@@ -260,10 +260,14 @@
         <div class="detail-row">
           <div class="detail-label">Address</div>
           <div class="detail-value">
-            <span id="modal-address">34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo</span>
-            <button class="btn-copy" id="btn-modal-copy-addr" title="Copy Address">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
+            <span id="modal-address">bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9h5z6wqg6330q</span>
+            <div class="modal-links-group">
+              <a href="#" id="modal-exp1-addr" target="_blank" rel="noopener noreferrer" class="exp-link" title="Open in explorer.ecash.com">[1] ecash.com</a>
+              <a href="#" id="modal-exp2-addr" target="_blank" rel="noopener noreferrer" class="exp-link exp-link-2" title="Open in explorer.blockfab.org">[2] blockfab.org</a>
+              <button class="btn-copy" id="btn-modal-copy-addr" title="Copy Address">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -271,12 +275,17 @@
           <div class="detail-label">Transaction Hash (TXID) &amp; Output Index</div>
           <div class="detail-value">
             <span id="modal-txid">76c5f72688009149457221e3ca6f65beac5500e3f847f978028ff55fc6dff5a1</span>
-            <button class="btn-copy" id="btn-modal-copy-txid" title="Copy TXID">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </button>
+            <div class="modal-links-group">
+              <a href="#" id="modal-exp1-txid" target="_blank" rel="noopener noreferrer" class="exp-link" title="Open TX on explorer.ecash.com">[1] ecash.com</a>
+              <a href="#" id="modal-exp2-txid" target="_blank" rel="noopener noreferrer" class="exp-link exp-link-2" title="Open TX on explorer.blockfab.org">[2] blockfab.org</a>
+              <button class="btn-copy" id="btn-modal-copy-txid" title="Copy TXID">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+            </div>
           </div>
-          <div style="margin-top: 6px; font-size: 0.78rem; color: var(--text-muted);">
-            Vout Index: <strong id="modal-vout" style="color: #fff;">0</strong>
+          <div style="margin-top: 6px; font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 16px;">
+            <span>Vout Index: <strong id="modal-vout" style="color: #fff;">0</strong></span>
+            <span>Movement: <strong id="modal-movement-type" style="color: var(--accent-emerald);">Post-Fork Moved</strong></span>
           </div>
         </div>
 
@@ -328,3 +337,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
