@@ -27,8 +27,7 @@
 
   // DOM Elements
   const elements = {
-    priceSlider: document.getElementById("price-slider"),
-    priceDisplay: document.getElementById("price-display"),
+    priceInput: document.getElementById("price-input"),
     btnCurrEcx: document.getElementById("btn-curr-ecx"),
     btnCurrUsd: document.getElementById("btn-curr-usd"),
     statTotalAmount: document.getElementById("stat-total-amount"),
@@ -613,14 +612,16 @@
 
   // Attach Event Handlers
   function attachEvents() {
-    // Price Slider
-    elements.priceSlider.addEventListener("input", (e) => {
-      state.ecxPriceUsd = Number(e.target.value);
-      elements.priceDisplay.textContent = "$" + state.ecxPriceUsd.toLocaleString();
-      updateKpis();
-      renderTable();
-      if (state.selectedUtxo) openModal(state.selectedUtxo);
-    });
+    // Price Manual Entry
+    if (elements.priceInput) {
+      elements.priceInput.addEventListener("input", (e) => {
+        const val = parseFloat(e.target.value);
+        state.ecxPriceUsd = isNaN(val) || val < 0 ? 0 : val;
+        updateKpis();
+        renderTable();
+        if (state.selectedUtxo) openModal(state.selectedUtxo);
+      });
+    }
 
     // Currency Switcher
     elements.btnCurrEcx.addEventListener("click", () => {

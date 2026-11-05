@@ -140,9 +140,9 @@ header {
 .price-box {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: var(--bg-tertiary);
-  padding: 6px 14px;
+  padding: 5px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
   font-size: 0.85rem;
@@ -150,12 +150,50 @@ header {
 
 .price-box label {
   color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-.price-box input[type="range"] {
-  width: 90px;
-  accent-color: var(--accent-cyan);
-  cursor: pointer;
+.price-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 8px;
+  transition: border-color var(--transition-fast);
+}
+
+.price-input-wrapper:focus-within {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.15);
+}
+
+.price-currency-symbol {
+  color: var(--accent-cyan);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 3px;
+}
+
+.price-box input[type="number"] {
+  width: 70px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.price-box input[type="number"]::-webkit-inner-spin-button,
+.price-box input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.price-box input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .currency-toggle {

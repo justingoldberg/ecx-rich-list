@@ -30,8 +30,11 @@
         </div>
 
         <div class="price-box">
-          <label for="price-slider">ECX Price: <strong id="price-display">$100</strong></label>
-          <input type="range" id="price-slider" min="10" max="1000" step="5" value="100">
+          <label for="price-input">ECX Price:</label>
+          <div class="price-input-wrapper">
+            <span class="price-currency-symbol">$</span>
+            <input type="number" id="price-input" min="0" step="any" value="100" placeholder="100">
+          </div>
         </div>
 
         <div class="currency-toggle">
