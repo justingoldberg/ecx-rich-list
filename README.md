@@ -92,7 +92,7 @@ python3 -m http.server 8000
 - **Instant Search:** Fuzzy search across Address, TXID, Block Height, Rank, or Known Entity names (e.g. `Binance`, `Mt Gox`, `Silk Road`, `Coinbase`, `Taproot`).
 - **Granular Filters:** Filter by Category (Exchange Cold Wallets, Institutional Custody, Dormant Whales, Protocol Reserves), Script Type (`P2WPKH`, `P2TR`, `P2SH`, `P2PKH`), or Size Tiers (Mega Whale >50k ECX down to Dolphins).
 - **Sortable Columns:** Multi-directional sorting by Rank, Amount, Block Height, Script Type, and Entity.
-- **Dynamic Price & Currency Toggle:** Real-time ECX/USD conversion toggle and interactive price slider ($10k - $250k USD).
+- **Dynamic Price & Currency Toggle:** Real-time ECX/USD conversion toggle and interactive price slider ($10 - $1,000 USD).
 - **Interactive Concentration Canvas Chart:** High-DPI Canvas visualization showing wealth distribution across the 500 UTXOs.
 - **UTXO Inspector Modal:** Inspect raw ScriptPubKey hex, transaction hashes, confirmation timestamps, output indices (`vout`), and an interactive **BIP-300 Drivechain Peg-In Simulator** for sidechains.
 - **Data Export:** Instant one-click export of the active or filtered UTXO dataset to formatted `.csv` or `.json`.

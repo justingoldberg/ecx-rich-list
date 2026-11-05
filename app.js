@@ -15,7 +15,7 @@
     sortField: "rank",
     sortDir: "asc",
     currency: "ECX",
-    ecxPriceUsd: 100000,
+    ecxPriceUsd: 100,
     searchQuery: "",
     selectedCategory: "ALL",
     selectedType: "ALL",
